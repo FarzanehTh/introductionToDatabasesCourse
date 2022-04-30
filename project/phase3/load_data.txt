@@ -1,0 +1,19 @@
+
+\i schema.ddl 
+
+\COPY country  from country.csv with  csv  NULL 'NULL'
+
+
+\COPY countryGDP  from countryGDP.csv with  csv  NULL 'NULL'
+
+
+\COPY employment  from employment.csv  with  csv  NULL 'NULL'
+
+
+\COPY employmentByAge  from employment_by_age.csv  with  csv  NULL 'NULL'
+
+
+\COPY employmentByEducation  from employment_by_education.csv  with  csv  NULL 'NULL'
+
+
+\COPY employmentByEnterprise  from employment_by_enterprise.csv  with  csv  NULL 'NULL'

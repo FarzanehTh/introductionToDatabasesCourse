@@ -1,0 +1,342 @@
+csc343h-tabande1=> \i schema.ddl
+CREATE SCHEMA
+SET
+CREATE DOMAIN
+CREATE DOMAIN
+CREATE DOMAIN
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+csc343h-tabande1=> \d
+                     List of relations
+    Schema     |          Name          | Type  |  Owner
+---------------+------------------------+-------+----------
+ projectschema | country                | table | tabande1
+ projectschema | countrygdp             | table | tabande1
+ projectschema | employment             | table | tabande1
+ projectschema | employmentbyage        | table | tabande1
+ projectschema | employmentbyeducation  | table | tabande1
+ projectschema | employmentbyenterprise | table | tabande1
+(6 rows)
+
+csc343h-tabande1=> \d country
+                     Table "projectschema.country"
+   Column    |          Type          | Collation | Nullable | Default
+-------------+------------------------+-----------+----------+---------
+ countrycode | character varying(3)   |           | not null |
+ countryname | character varying(100) |           | not null |
+Indexes:
+    "country_pkey" PRIMARY KEY, btree (countrycode)
+Referenced by:
+    TABLE "countrygdp" CONSTRAINT "countrygdp_countrycode_fkey" FOREIGN KEY (countrycode) REFERENCES country(countrycode)
+    TABLE "employment" CONSTRAINT "employment_countrycode_fkey" FOREIGN KEY (countrycode) REFERENCES country(countrycode)
+    TABLE "employmentbyage" CONSTRAINT "employmentbyage_countrycode_fkey" FOREIGN KEY (countrycode) REFERENCES country(countrycode)
+    TABLE "employmentbyeducation" CONSTRAINT "employmentbyeducation_countrycode_fkey" FOREIGN KEY (countrycode) REFERENCES country(countrycode)
+    TABLE "employmentbyenterprise" CONSTRAINT "employmentbyenterprise_countrycode_fkey" FOREIGN KEY (countrycode) REFERENCES country(countrycode)
+
+csc343h-tabande1=> \d countryGDP
+                   Table "projectschema.countrygdp"
+    Column    |         Type         | Collation | Nullable | Default
+--------------+----------------------+-----------+----------+---------
+ countrycode  | character varying(3) |           | not null |
+ theyear      | character varying(4) |           | not null |
+ gdp          | double precision     |           | not null |
+ gdppercapita | double precision     |           |          |
+Indexes:
+    "countrygdp_pkey" PRIMARY KEY, btree (countrycode, theyear)
+Foreign-key constraints:
+    "countrygdp_countrycode_fkey" FOREIGN KEY (countrycode) REFERENCES country(countrycode)
+
+csc343h-tabande1=> \d employment
+                    Table "projectschema.employment"
+     Column     |         Type         | Collation | Nullable | Default
+----------------+----------------------+-----------+----------+---------
+ countrycode    | character varying(3) |           | not null |
+ theyear        | integer              |           | not null |
+ employmentrate | double precision     |           | not null |
+Indexes:
+    "employment_pkey" PRIMARY KEY, btree (countrycode, theyear)
+Foreign-key constraints:
+    "employment_countrycode_fkey" FOREIGN KEY (countrycode) REFERENCES country(countrycode)
+
+csc343h-tabande1=> \d employmentByAge
+                    Table "projectschema.employmentbyage"
+       Column        |         Type         | Collation | Nullable | Default
+---------------------+----------------------+-----------+----------+---------
+ countrycode         | character varying(3) |           | not null |
+ theyear             | integer              |           | not null |
+ agegroup            | agegroup             |           | not null |
+ employmentbyagerate | double precision     |           | not null |
+Indexes:
+    "employmentbyage_pkey" PRIMARY KEY, btree (countrycode, theyear, agegroup)
+Foreign-key constraints:
+    "employmentbyage_countrycode_fkey" FOREIGN KEY (countrycode) REFERENCES country(countrycode)
+
+csc343h-tabande1=> \d employmentbyeducation
+                    Table "projectschema.employmentbyeducation"
+          Column           |         Type         | Collation | Nullable | Default
+---------------------------+----------------------+-----------+----------+---------
+ countrycode               | character varying(3) |           | not null |
+ theyear                   | integer              |           | not null |
+ educationlevel            | educationlevel       |           | not null |
+ employmentbyeducationrate | double precision     |           | not null |
+Indexes:
+    "employmentbyeducation_pkey" PRIMARY KEY, btree (countrycode, theyear, educationlevel)
+Foreign-key constraints:
+    "employmentbyeducation_countrycode_fkey" FOREIGN KEY (countrycode) REFERENCES country(countrycode)
+
+csc343h-tabande1=> \d employmentbyenterprise
+              Table "projectschema.employmentbyenterprise"
+     Column     |         Type         | Collation | Nullable | Default
+----------------+----------------------+-----------+----------+---------
+ countrycode    | character varying(3) |           | not null |
+ theyear        | integer              |           | not null |
+ enterprisesize | enterprisesize       |           | not null |
+ numenterprises | double precision     |           | not null |
+Indexes:
+    "employmentbyenterprise_pkey" PRIMARY KEY, btree (countrycode, theyear, enterprisesize)
+Foreign-key constraints:
+    "employmentbyenterprise_countrycode_fkey" FOREIGN KEY (countrycode) REFERENCES country(countrycode)
+
+csc343h-tabande1=> \COPY country  from country.csv with  csv  NULL 'NULL'
+COPY 241
+csc343h-tabande1=> \COPY countryGDP  from countryGDP.csv with  csv  NULL 'NULL'
+COPY 220
+csc343h-tabande1=> \COPY employment  from employment.csv  with  csv  NULL 'NULL'
+COPY 160
+csc343h-tabande1=> \COPY employmentByAge  from employment_by_age.csv  with  csv  NULL 'NULL'
+COPY 480
+csc343h-tabande1=> \COPY employmentByEducation  from employment_by_education.csv  with  csv  NULL 'NULL'
+COPY 487
+csc343h-tabande1=> \COPY employmentByEnterprise  from employment_by_enterprise.csv  with  csv  NULL 'NULL'
+COPY 585
+csc343h-tabande1=> \d
+                     List of relations
+    Schema     |          Name          | Type  |  Owner
+---------------+------------------------+-------+----------
+ projectschema | country                | table | tabande1
+ projectschema | countrygdp             | table | tabande1
+ projectschema | employment             | table | tabande1
+ projectschema | employmentbyage        | table | tabande1
+ projectschema | employmentbyeducation  | table | tabande1
+ projectschema | employmentbyenterprise | table | tabande1
+(6 rows)
+
+csc343h-tabande1=> SELECT count(*) FROM Country;
+ count
+-------
+   241
+(1 row)
+
+csc343h-tabande1=> SELECT count(*) FROM CountryGDP;
+ count
+-------
+   220
+(1 row)
+
+csc343h-tabande1=> SELECT count(*) FROM Employment;
+ count
+-------
+   160
+(1 row)
+
+csc343h-tabande1=> SELECT count(*) FROM EmploymentByAge;
+ count
+-------
+   480
+(1 row)
+
+csc343h-tabande1=> SELECT count(*) FROM EmploymentByEducation;
+ count
+-------
+   487
+(1 row)
+
+csc343h-tabande1=> SELECT count(*) FROM EmploymentByEnterprise;
+ count
+-------
+   585
+(1 row)
+
+csc343h-tabande1=> SELECT * FROM Country limit 10;
+countrycode |     countryname
+-------------+---------------------
+ AFG         | Afghanistan
+ ALA         | Aland Islands
+ ALB         | Albania
+ DZA         | Algeria
+ ASM         | American Samoa
+ AND         | Andorra
+ AGO         | Angola
+ AIA         | Anguilla
+ ATA         | Antarctica
+ ATG         | Antigua and Barbuda
+(10 rows)
+
+csc343h-tabande1=> SELECT * FROM CountryGDP limit 10;
+ countrycode | theyear |     gdp     | gdppercapita
+-------------+---------+-------------+--------------
+ AUS         | 2016    | 1215297.461 | 50237.794429
+ AUS         | 2017    | 1251095.561 | 50853.615427
+ AUS         | 2018    | 1326164.114 | 53083.298192
+ AUS         | 2019    | 1346385.112 | 53078.965373
+ AUT         | 2016    |  460282.647 | 52665.087457
+ AUT         | 2017    |  476563.995 | 54185.337013
+ AUT         | 2018    |   504354.99 | 57068.534815
+ AUT         | 2019    |  520804.077 | 58664.718719
+ BEL         | 2016    |  550677.566 | 48599.202676
+ BEL         | 2017    |  573788.528 | 50442.947518
+(10 rows)
+
+csc343h-tabande1=> SELECT * FROM Employment limit 10;
+ countrycode | theyear | employmentrate
+-------------+---------+----------------
+ AUS         | 2016    |        72.4315
+ AUS         | 2017    |       72.98936
+ AUS         | 2018    |       73.76588
+ AUS         | 2019    |       74.32264
+ AUT         | 2016    |          71.55
+ AUT         | 2017    |           72.2
+ AUT         | 2018    |         73.025
+ AUT         | 2019    |         73.525
+ BEL         | 2016    |           62.3
+ BEL         | 2017    |         63.125
+(10 rows)
+
+csc343h-tabande1=> SELECT * FROM EmploymentByAge limit 10;
+countrycode | theyear | agegroup | employmentbyagerate
+-------------+---------+----------+---------------------
+AUS         |    2016 | 55_64    |            62.46673
+AUS         |    2017 | 55_64    |            63.58626
+AUS         |    2018 | 55_64    |            63.81186
+AUS         |    2019 | 55_64    |            64.47645
+AUT         |    2016 | 55_64    |              49.175
+AUT         |    2017 | 55_64    |              51.275
+AUT         |    2018 | 55_64    |              53.975
+AUT         |    2019 | 55_64    |              54.475
+BEL         |    2016 | 55_64    |              45.425
+BEL         |    2017 | 55_64    |              48.225
+(10 rows)
+
+csc343h-tabande1=> SELECT * FROM EmploymentByEducation limit 10;
+countrycode | theyear | educationlevel  | employmentbyeducationrate
+-------------+---------+-----------------+---------------------------
+NZL         |    2016 | UPPER_SECONDARY |                 82.106155
+NZL         |    2017 | UPPER_SECONDARY |                 82.556374
+NZL         |    2018 | UPPER_SECONDARY |                 83.478004
+NZL         |    2019 | UPPER_SECONDARY |                 82.946716
+GBR         |    2016 | POST_SECONDARY  |                 85.069305
+GBR         |    2017 | POST_SECONDARY  |                 85.466637
+GBR         |    2018 | POST_SECONDARY  |                 86.119209
+GBR         |    2019 | POST_SECONDARY  |                 86.628654
+CHE         |    2016 | LOWER_SECONDARY |                 67.597321
+CHE         |    2017 | LOWER_SECONDARY |                 67.160423
+(10 rows)
+
+csc343h-tabande1=> SELECT * FROM EmploymentByEnterprise limit 10;
+ countrycode | theyear |  enterprisesize  | numenterprises
+-------------+---------+------------------+----------------
+ AUS         | 2016    | 1_9_EMPLOYED     |         116606
+ AUS         | 2017    | 1_9_EMPLOYED     |         118119
+ AUS         | 2016    | 20_49_EMPLOYED   |           6445
+ AUS         | 2017    | 20_49_EMPLOYED   |           6430
+ AUS         | 2016    | 250MORE_EMPLOYED |            524
+ AUS         | 2017    | 250MORE_EMPLOYED |            523
+ AUT         | 2016    | 1_9_EMPLOYED     |          18115
+ AUT         | 2017    | 1_9_EMPLOYED     |          18560
+ AUT         | 2018    | 1_9_EMPLOYED     |          18356
+ AUT         | 2016    | 10_19_EMPLOYED   |           2817
+(10 rows)
+
+csc343h-tabande1=> SELECT * FROM Country WHERE countryname = 'Canada';
+ countrycode | countryname
+-------------+-------------
+ CAN         | Canada
+(1 row)
+
+csc343h-tabande1=> SELECT * FROM CountryGDP WHERE theYear = '2019' AND countryCode = 'CAN';
+ countrycode | theyear |     gdp     | gdppercapita
+-------------+---------+-------------+--------------
+ CAN         | 2019    | 1904502.917 | 50660.587438
+(1 row)
+
+csc343h-tabande1=> SELECT * FROM CountryGDP WHERE countryCode = 'CAN';
+ countrycode | theyear |     gdp     | gdppercapita
+-------------+---------+-------------+--------------
+ CAN         | 2016    | 1678093.396 | 46472.368771
+ CAN         | 2017    | 1765763.154 | 48316.716527
+ CAN         | 2018    | 1862154.108 | 50239.988278
+ CAN         | 2019    | 1904502.917 | 50660.587438
+(4 rows)
+
+csc343h-tabande1=> SELECT * FROM Employment  WHERE countryCode = 'CAN';
+ countrycode | theyear | employmentrate
+-------------+---------+----------------
+ CAN         | 2016    |       72.33334
+ CAN         | 2017    |       73.15833
+ CAN         | 2018    |       73.53333
+ CAN         | 2019    |          74.15
+(4 rows)
+
+csc343h-tabande1=> SELECT * FROM EmploymentByAge  WHERE countryCode = 'CAN';
+ countrycode | theyear | agegroup | employmentbyagerate
+-------------+---------+----------+---------------------
+ CAN         | 2016    | 55_64    |            60.85915
+ CAN         | 2017    | 55_64    |            61.39872
+ CAN         | 2018    | 55_64    |            62.08804
+ CAN         | 2019    | 55_64    |            62.61113
+ CAN         | 2020    | 55_64    |            60.41977
+ CAN         | 2016    | 25_54    |            81.06667
+ CAN         | 2017    | 25_54    |              82.025
+ CAN         | 2018    | 25_54    |            82.44167
+ CAN         | 2019    | 25_54    |            83.14167
+ CAN         | 2020    | 25_54    |            79.49167
+ CAN         | 2016    | 15_24    |                  56
+ CAN         | 2017    | 15_24    |            57.11666
+ CAN         | 2018    | 15_24    |            57.24166
+ CAN         | 2019    | 15_24    |            57.78333
+ CAN         | 2020    | 15_24    |            49.50834
+(15 rows)
+
+csc343h-tabande1=> SELECT * FROM EmploymentByEducation  WHERE countryCode = 'CAN';
+ countrycode | theyear | educationlevel  | employmentbyeducationrate
+-------------+---------+-----------------+---------------------------
+ CAN         | 2016    | UPPER_SECONDARY |                 73.611115
+ CAN         | 2017    | UPPER_SECONDARY |                 74.156807
+ CAN         | 2018    | UPPER_SECONDARY |                 74.461403
+ CAN         | 2019    | UPPER_SECONDARY |                 74.549652
+ CAN         | 2020    | UPPER_SECONDARY |                 70.191864
+ CAN         | 2016    | LOWER_SECONDARY |                 54.560349
+ CAN         | 2017    | LOWER_SECONDARY |                 55.593803
+ CAN         | 2018    | LOWER_SECONDARY |                 55.602409
+ CAN         | 2019    | LOWER_SECONDARY |                 56.449631
+ CAN         | 2020    | LOWER_SECONDARY |                 54.023746
+ CAN         | 2016    | POST_SECONDARY  |                 81.841385
+ CAN         | 2017    | POST_SECONDARY  |                 82.389374
+ CAN         | 2018    | POST_SECONDARY  |                 82.702705
+ CAN         | 2019    | POST_SECONDARY  |                 83.111526
+ CAN         | 2020    | POST_SECONDARY  |                 79.462875
+(15 rows)
+
+csc343h-tabande1=> SELECT * FROM EmploymentByEnterprise  WHERE countryCode = 'CAN';
+ countrycode | theyear |  enterprisesize  | numenterprises
+-------------+---------+------------------+----------------
+ CAN         | 2016    | 1_9_EMPLOYED     |          31300
+ CAN         | 2017    | 1_9_EMPLOYED     |          30920
+ CAN         | 2018    | 1_9_EMPLOYED     |          31280
+ CAN         | 2016    | 10_19_EMPLOYED   |           7180
+ CAN         | 2017    | 10_19_EMPLOYED   |           7300
+ CAN         | 2018    | 10_19_EMPLOYED   |           7400
+ CAN         | 2016    | 20_49_EMPLOYED   |           5980
+ CAN         | 2017    | 20_49_EMPLOYED   |           6030
+ CAN         | 2018    | 20_49_EMPLOYED   |           6150
+ CAN         | 2016    | 250MORE_EMPLOYED |            420
+ CAN         | 2017    | 250MORE_EMPLOYED |            420
+ CAN         | 2018    | 250MORE_EMPLOYED |            450
+ CAN         | 2016    | 50_249_EMPLOYED  |           3490
+ CAN         | 2017    | 50_249_EMPLOYED  |           3610
+ CAN         | 2018    | 50_249_EMPLOYED  |           3720
+(15 rows)

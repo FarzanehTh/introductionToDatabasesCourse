@@ -1,0 +1,561 @@
+csc343h-tabande1=> \i load_data.txt
+psql:schema.ddl:1: NOTICE:  drop cascades to 9 other objects
+DETAIL:  drop cascades to type projectschema.agegroup
+drop cascades to type projectschema.educationlevel
+drop cascades to type projectschema.enterprisesize
+drop cascades to table projectschema.country
+drop cascades to table projectschema.countrygdp
+drop cascades to table projectschema.employment
+drop cascades to table projectschema.employmentbyage
+drop cascades to table projectschema.employmentbyeducation
+drop cascades to table projectschema.employmentbyenterprise
+DROP SCHEMA
+CREATE SCHEMA
+SET
+CREATE DOMAIN
+CREATE DOMAIN
+CREATE DOMAIN
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+COPY 241
+COPY 220
+COPY 160
+COPY 480
+COPY 487
+COPY 585
+
+csc343h-tabande1=> \d
+                     List of relations
+    Schema     |          Name          | Type  |  Owner   
+---------------+------------------------+-------+----------
+ projectschema | country                | table | tabande1
+ projectschema | countrygdp             | table | tabande1
+ projectschema | employment             | table | tabande1
+ projectschema | employmentbyage        | table | tabande1
+ projectschema | employmentbyeducation  | table | tabande1
+ projectschema | employmentbyenterprise | table | tabande1
+(6 rows)
+
+csc343h-tabande1=> \i queries.sql
+psql:queries.sql:6: NOTICE:  view "avggdpoveryears" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+psql:queries.sql:13: NOTICE:  view "avggdpcountries" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+psql:queries.sql:18: NOTICE:  view "tophighestgdpcountries" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+-------------------- Top 10 countries with highest GDP --------------------
+
+ countrycode |  countryname   |    avggdp     
+-------------+----------------+---------------
+ CHN         | China          | 20971308.5675
+ USA         | USA            |    20018617.5
+ IND         | India          |   7894564.768
+ JPN         | Japan          | 5300142.67825
+ DEU         | Germany        | 4450099.76825
+ RUS         | Russia         | 3960332.44375
+ FRA         | France         | 3078084.93325
+ GBR         | United Kingdom |    3073598.84
+ BRA         | Brazil         |    3034707.06
+ IDN         | Indonesia      | 3021947.15875
+(10 rows)
+
+
+-------------------- Top 10 countries with lowest GDP --------------------
+
+ countrycode |   countryname   |      avggdp      
+-------------+-----------------+------------------
+ ISL         | Iceland         |       19824.2715
+ MLT         | Malta           |       21277.5045
+ CYP         | Cyprus          |      33738.49175
+ MKD         | North Macedonia |        33829.293
+ MDG         | Madagascar      | 41622.0593333333
+ EST         | Estonia         |        46092.892
+ LVA         | Latvia          |      57147.07475
+ ZMB         | Zambia          | 59193.4813333333
+ LUX         | Luxembourg      |      69322.61975
+ SVN         | Slovenia        |      78065.97475
+(10 rows)
+
+
+psql:queries.sql:40: NOTICE:  view "avggdppercapitaoveryears" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+psql:queries.sql:47: NOTICE:  view "avggdppercapitacountries" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+psql:queries.sql:52: NOTICE:  view "tophighestgdppercapitacountries" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+-------------------- Top 10 countries with highest GDP Per Capita --------------------
+
+ countrycode | countryname | avggdppercapita  
+-------------+-------------+------------------
+ LUX         | Luxembourg  |   114899.9925715
+ SGP         | Singapore   | 95207.4629446667
+ IRL         | Ireland     |     80972.198944
+ CHE         | Switzerland |    70505.9986615
+ NOR         | Norway      |   65256.68230825
+ USA         | USA         |    61395.6985585
+ HKG         | Hong Kong   | 59875.0096256667
+ ISL         | Iceland     |   56893.14029425
+ NLD         | Netherlands |   56238.39467825
+ DNK         | Denmark     |   56161.63542125
+(10 rows)
+
+
+-------------------- Top 10 countries with lowest GDP Per Capita --------------------
+
+ countrycode |   countryname   | avggdppercapita  
+-------------+-----------------+------------------
+ MDG         | Madagascar      | 1627.12901966667
+ ZMB         | Zambia          |      3509.380528
+ IND         | India           |       5901.21084
+ MAR         | Morocco         |      7607.450605
+ IDN         | Indonesia       |     10830.511904
+ ZAF         | South Africa    |    13065.9382555
+ CHN         | China           |    13919.6556495
+ BRA         | Brazil          | 14671.2097953333
+ COL         | Colombia        |   14967.00790075
+ MKD         | North Macedonia | 15856.7299973333
+(10 rows)
+
+
+psql:queries.sql:75: NOTICE:  view "avgemploymentrateoveryears" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+psql:queries.sql:82: NOTICE:  view "avgemploymentratecountries" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+-------------------- Top 10 countries with highest employment rate --------------------
+
+ countrycode |  countryname   | avgemploymentrate 
+-------------+----------------+-------------------
+ ISL         | Iceland        |             85.45
+ CHE         | Switzerland    |          79.99375
+ SWE         | Sweden         |           76.8875
+ NZL         | New Zealand    |         76.862395
+ NLD         | Netherlands    |          76.50625
+ JPN         | Japan          |        76.1004875
+ DEU         | Germany        |            75.625
+ GBR         | United Kingdom |        75.3020675
+ NOR         | Norway         |              74.6
+ EST         | Estonia        |            74.075
+(10 rows)
+
+-------------------- Top 10 countries with lowest employment rate --------------------
+
+ countrycode | countryname  | avgemploymentrate 
+-------------+--------------+-------------------
+ ZAF         | South Africa |        43.0240175
+ TUR         | Turkey       |          51.11875
+ GRC         | Greece       |          54.23125
+ ITA         | Italy        |              58.2
+ CRI         | Costa Rica   |          60.27479
+ MEX         | Mexico       |        61.4771775
+ ESP         | Spain        |           61.5875
+ BEL         | Belgium      |          63.79375
+ CHL         | Chile        |        63.8591925
+ FRA         | France       |          64.94375
+(10 rows)
+
+---------------------------------------------------------------------------------------------------------------------
+------------------ Investigative Question 1: Effect of Age on Employment, GDP and GDP per capita --------------------
+---------------------------------------------------------------------------------------------------------------------
+
+psql:queries.sql:109: NOTICE:  view "avgemploymentinagegroupsoveryears" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+psql:queries.sql:117: NOTICE:  view "highestemploymentrateovergroups" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+psql:queries.sql:123: NOTICE:  view "groupwithhighestemployment" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+psql:queries.sql:129: NOTICE:  view "groupwithhighestemploymentincountries" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+-------------------- Age group with highest employment rate in countries --------------------
+
+ agegroup 
+----------
+ 25_54
+(1 row)
+
+
+psql:queries.sql:140: NOTICE:  view "countrieswithhighestemploymentinhighestgroup" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+-------------------- Top 10 countries with most employment in the highest age group "25_54" --------------------
+
+ countrycode |  countryname   | agegroup | maxofavgemploymentbyagerate 
+-------------+----------------+----------+-----------------------------
+ ISL         | Iceland        | 25_54    |                    89.29375
+ RUS         | Russia         | 25_54    |                  86.8419875
+ CZE         | Czechia        | 25_54    |                      86.825
+ CHE         | Switzerland    | 25_54    |                     86.6875
+ SVN         | Slovenia       | 25_54    |                     86.4125
+ SWE         | Sweden         | 25_54    |                     86.3125
+ JPN         | Japan          | 25_54    |                  84.7017425
+ DEU         | Germany        | 25_54    |                    84.60625
+ GBR         | United Kingdom | 25_54    |                  84.5780025
+ AUT         | Austria        | 25_54    |                    84.38125
+(10 rows)
+
+
+psql:queries.sql:153: NOTICE:  view "countrieswithlowestemploymentinhighestgroup" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+-------------------- Top 10 countries with lowest employment in the highest age group "25_54" --------------------
+
+ countrycode | countryname  | agegroup | maxofavgemploymentbyagerate 
+-------------+--------------+----------+-----------------------------
+ ZAF         | South Africa | 25_54    |                    57.08637
+ TUR         | Turkey       | 25_54    |                    60.59375
+ GRC         | Greece       | 25_54    |                    68.28125
+ ITA         | Italy        | 25_54    |                    69.64375
+ MEX         | Mexico       | 25_54    |                    71.70536
+ CRI         | Costa Rica   | 25_54    |                   73.026725
+ ESP         | Spain        | 25_54    |                      73.775
+ CHL         | Chile        | 25_54    |                   75.530065
+ KOR         | South Korea  | 25_54    |                   76.328775
+ COL         | Colombia     | 25_54    |                    77.51771
+(10 rows)
+
+
+psql:queries.sql:166: NOTICE:  view "employmentinoldagegroup" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+psql:queries.sql:172: NOTICE:  view "countrieswithhighestemploymentinoldagegroup" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+-------------------- Top 10 countries with highest employment rate in oldest age group "55_64" --------------------
+
+ countrycode | countryname | agegroup | avgemploymentbyagerate 
+-------------+-------------+----------+------------------------
+ ISL         | Iceland     | 55_64    |                82.5875
+ NZL         | New Zealand | 55_64    |               77.07651
+ SWE         | Sweden      | 55_64    |               76.90625
+ JPN         | Japan       | 55_64    |             74.1795825
+ NOR         | Norway      | 55_64    |                  72.35
+ CHE         | Switzerland | 55_64    |               72.31875
+ DEU         | Germany     | 55_64    |               70.70625
+ EST         | Estonia     | 55_64    |               68.68125
+ DNK         | Denmark     | 55_64    |               68.63125
+ ISR         | Israel      | 55_64    |              67.122915
+(10 rows)
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+------------------ Investigative Question 2: Effect of Education on Employment, GDP and GDP per capita ---------------------------
+----------------------------------------------------------------------------------------------------------------------------------
+
+psql:queries.sql:192: NOTICE:  view "avgemploymentbyeducationoveryears" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+psql:queries.sql:200: NOTICE:  view "highestemploymenteducationlevel" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+psql:queries.sql:206: NOTICE:  view "educationlevelwithhighestemploymentincountries" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+-------------------- Education level with highest employment rate --------------------
+
+ educationlevel 
+----------------
+ POST_SECONDARY
+(1 row)
+
+
+psql:queries.sql:217: NOTICE:  view "topcountriesinhighestemployededucationlevel" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+--------------- Top 10 countries with highest employment rate in education level "POST_SECONDARY" ---------------
+
+ countrycode | countryname | educationlevel | maxavgemploymentbyeducationrate 
+-------------+-------------+----------------+---------------------------------
+ ISL         | Iceland     | POST_SECONDARY |                       91.373625
+ LTU         | Lithuania   | POST_SECONDARY |                     90.99300575
+ SWE         | Sweden      | POST_SECONDARY |                     89.78543275
+ NLD         | Netherlands | POST_SECONDARY |                     89.13350875
+ NOR         | Norway      | POST_SECONDARY |                       89.036026
+ DEU         | Germany     | POST_SECONDARY |                     88.78880475
+ CHE         | Switzerland | POST_SECONDARY |                       88.699253
+ POL         | Poland      | POST_SECONDARY |                     88.34990125
+ LVA         | Latvia      | POST_SECONDARY |                       88.265776
+ NZL         | New Zealand | POST_SECONDARY |                      88.0642415
+(10 rows)
+
+
+------------------ Employment in Lithuania ------------------
+
+ countrycode | avgemploymentrate 
+-------------+-------------------
+ LTU         |          71.28125
+(1 row)
+
+----------------- Top 10 countries with lowest employment rate in education level "POST_SECONDARY" ---------------
+
+ countrycode | countryname  | educationlevel | maxavgemploymentbyeducationrate 
+-------------+--------------+----------------+---------------------------------
+ GRC         | Greece       | POST_SECONDARY |                      73.0893725
+ SAU         | Saudi Arabia | POST_SECONDARY |                       73.962494
+ TUR         | Turkey       | POST_SECONDARY |                     74.53946475
+ KOR         | South Korea  | POST_SECONDARY |                      77.4984265
+ ZAF         | South Africa | POST_SECONDARY |                     78.60862325
+ MEX         | Mexico       | POST_SECONDARY |                     79.79011525
+ ITA         | Italy        | POST_SECONDARY |                     80.74205025
+ ESP         | Spain        | POST_SECONDARY |                      81.0774975
+ CRI         | Costa Rica   | POST_SECONDARY |                     81.13145625
+ USA         | USA          | POST_SECONDARY |                      82.0733835
+(10 rows)
+
+
+psql:queries.sql:241: NOTICE:  view "avgemploymentoveralleducationlevels" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+psql:queries.sql:247: NOTICE:  view "employmentbyeducationwithavgofallrates" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+psql:queries.sql:253: NOTICE:  view "employmentbyeducationwithsquareddiffofrates" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+psql:queries.sql:259: NOTICE:  view "employmentbyeducationwithstandarddeviation" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+psql:queries.sql:265: NOTICE:  view "employmentbyeducationwithavgandstandarddeviation" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+psql:queries.sql:271: NOTICE:  view "employmentbyeducationwithstandarddeviationincountries" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+--------------- Top 10 countries with highest standard deviation of employment rate across different education levels ---------------
+
+ countrycode | countryname  |  avgofallrates   | ratesstandarddeviation 
+-------------+--------------+------------------+------------------------
+ SVK         | Slovakia     | 65.6480016666667 |       19.5340850285634
+ POL         | Poland       |      66.92335925 |       18.7656497144148
+ BEL         | Belgium      | 68.7246424166667 |       16.3350853235113
+ SVN         | Slovenia     | 69.8919058333333 |       16.2229306022447
+ CZE         | Czechia      |      73.25899375 |       15.9629869967202
+ LTU         | Lithuania    | 72.6325349166667 |       15.5744086073946
+ ISR         | Israel       | 70.4286934166667 |       15.1499803079964
+ IRL         | Ireland      | 69.5142604166667 |       13.5587065640851
+ FRA         | France       | 70.2245521666667 |       13.5415667368778
+ ZAF         | South Africa | 61.4172953333333 |       13.5403869011464
+(10 rows)
+
+-------------- Employment by education level in two top countries with highest standard deviation of employment across education levels ----------------
+
+ countrycode | educationlevel  | avgemploymentbyeducationrate 
+-------------+-----------------+------------------------------
+ SVK         | LOWER_SECONDARY |                  38.25706375
+ SVK         | POST_SECONDARY  |                   82.4536325
+ SVK         | UPPER_SECONDARY |                  76.23330875
+(3 rows)
+
+ countrycode | educationlevel  | avgemploymentbyeducationrate 
+-------------+-----------------+------------------------------
+ POL         | LOWER_SECONDARY |                  42.64904525
+ POL         | POST_SECONDARY  |                  88.34990125
+ POL         | UPPER_SECONDARY |                  69.77113125
+(3 rows)
+
+--------------- Top 10 countries with lowest standard deviation of employment across different education levels ----------------
+
+ countrycode | countryname  |  avgofallrates   | ratesstandarddeviation 
+-------------+--------------+------------------+------------------------
+ JPN         | Japan        |        84.682785 |                      0
+ COL         | Colombia     | 76.1372394166667 |       4.60130094910896
+ KOR         | South Korea  |        71.659886 |       5.17215827762658
+ SAU         | Saudi Arabia | 66.7938896666667 |       5.18152502317908
+ IDN         | Indonesia    |       77.3066355 |       5.52927343428051
+ MEX         | Mexico       | 71.9045428333333 |       6.06820560446558
+ NZL         | New Zealand  |      80.97683525 |       6.64203788965778
+ ISL         | Iceland      | 84.0202159166667 |       6.95877828081568
+ CRI         | Costa Rica   | 71.9920326666667 |       7.00355901550019
+ ARG         | Argentina    |        74.041069 |       7.55085233694217
+(10 rows)
+
+-------------- Employment by education level in three top countries with lowest standard deviation of employment across education levels --------------
+
+ countrycode | educationlevel  | avgemploymentbyeducationrate 
+-------------+-----------------+------------------------------
+ COL         | LOWER_SECONDARY |                  71.08500675
+ COL         | POST_SECONDARY  |                  82.21499825
+ COL         | UPPER_SECONDARY |                  75.11171325
+(3 rows)
+
+ countrycode | educationlevel  | avgemploymentbyeducationrate 
+-------------+-----------------+------------------------------
+ KOR         | POST_SECONDARY  |                   77.4984265
+ KOR         | UPPER_SECONDARY |                    72.556427
+ KOR         | LOWER_SECONDARY |                   64.9248045
+(3 rows)
+
+ countrycode | educationlevel  | avgemploymentbyeducationrate 
+-------------+-----------------+------------------------------
+ SAU         | LOWER_SECONDARY |                    61.894051
+ SAU         | POST_SECONDARY  |                    73.962494
+ SAU         | UPPER_SECONDARY |                    64.525124
+(3 rows)
+
+--------------- Standard deviation of employment rate across education levels in 10 top countries with highest GDP ---------------
+
+ countrycode |  countryname   |  avgofallrates   | ratesstandarddeviation 
+-------------+----------------+------------------+------------------------
+ JPN         | Japan          |        84.682785 |                      0
+ IDN         | Indonesia      |       77.3066355 |       5.52927343428051
+ GBR         | United Kingdom | 76.8270225833333 |       9.45262217731316
+ BRA         | Brazil         | 71.4858204166667 |       9.71778722732624
+ USA         | USA            | 69.4247818333333 |       10.5521671053435
+ DEU         | Germany        | 77.0920865833333 |       12.0078659616208
+ RUS         | Russia         | 69.2899134444444 |       12.2673604294836
+ FRA         | France         | 70.2245521666667 |       13.5415667368778
+(8 rows)
+
+-------------- Employment by education level of high GDP countries with highest and lowest standard deviations --------------
+
+ countrycode | educationlevel  | avgemploymentbyeducationrate 
+-------------+-----------------+------------------------------
+ IDN         | UPPER_SECONDARY |                    74.137108
+ IDN         | LOWER_SECONDARY |                    72.700691
+ IDN         | POST_SECONDARY  |                   85.0821075
+(3 rows)
+
+ countrycode | educationlevel  | avgemploymentbyeducationrate 
+-------------+-----------------+------------------------------
+ FRA         | LOWER_SECONDARY |                    52.370926
+ FRA         | UPPER_SECONDARY |                   73.1516095
+ FRA         | POST_SECONDARY  |                    85.151121
+(3 rows)
+
+------------- Standard deviation of employment rate across education levels in 10 top countries with highest GDP Per Capita ---------
+
+ countrycode | countryname |  avgofallrates   | ratesstandarddeviation 
+-------------+-------------+------------------+------------------------
+ ISL         | Iceland     | 84.0202159166667 |       6.95877828081568
+ CHE         | Switzerland | 79.5338319166667 |       8.59635358215619
+ LUX         | Luxembourg  | 73.4589095833333 |       10.1754706703673
+ USA         | USA         | 69.4247818333333 |       10.5521671053435
+ DNK         | Denmark     | 76.1874690833333 |       10.8793252198725
+ NLD         | Netherlands | 77.2835960833333 |        11.353943390277
+ NOR         | Norway      | 76.9571928333333 |       11.5125946497798
+ IRL         | Ireland     | 69.5142604166667 |       13.5587065640851
+(8 rows)
+
+-------------- Employment by education level of high GDP Per Capita countries with highest and lowest standard deviations --------------
+
+ countrycode | educationlevel  | avgemploymentbyeducationrate 
+-------------+-----------------+------------------------------
+ ISL         | POST_SECONDARY  |                    91.373625
+ ISL         | LOWER_SECONDARY |                   74.6793765
+ ISL         | UPPER_SECONDARY |                  86.00764625
+(3 rows)
+
+ countrycode | educationlevel  | avgemploymentbyeducationrate 
+-------------+-----------------+------------------------------
+ IRL         | POST_SECONDARY  |                   84.5099545
+ IRL         | UPPER_SECONDARY |                  72.36555125
+ IRL         | LOWER_SECONDARY |                   51.6672755
+(3 rows)
+
+----------------------------------------------------------------------------------------------------------------------------------
+------------------ Investigative Question 3: Effect of Enterprise Sizes on Employment, GDP and GDP per capita ------------------
+----------------------------------------------------------------------------------------------------------------------------------
+
+psql:queries.sql:321: NOTICE:  view "avgnumofenterprisesofdifferenttypesoveryears" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+psql:queries.sql:328: NOTICE:  view "topenterprisesizeoverallsizes" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+psql:queries.sql:334: NOTICE:  view "topenterprisesize" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+psql:queries.sql:340: NOTICE:  view "topenterprisesizeincountries" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+-------------------- Enterprise size with highest number of enterprises in countries--------------------
+
+ enterprisesize | count 
+----------------+-------
+ 1_9_EMPLOYED   |    41
+ 20_49_EMPLOYED |     1
+(2 rows)
+
+----------------- Top 10 countries with highest number of enterprises of size 1_9_EMPLOYED -----------------
+
+ countrycode | countryname | enterprisesize | maxavgnumofenterprises 
+-------------+-------------+----------------+------------------------
+ TUR         | Turkey      | 1_9_EMPLOYED   |              340360.75
+ ITA         | Italy       | 1_9_EMPLOYED   |       314891.666666667
+ JPN         | Japan       | 1_9_EMPLOYED   |                 287122
+ RUS         | Russia      | 1_9_EMPLOYED   |       280125.666666667
+ POL         | Poland      | 1_9_EMPLOYED   |       184418.666666667
+ FRA         | France      | 1_9_EMPLOYED   |       180245.666666667
+ CZE         | Czechia     | 1_9_EMPLOYED   |       164748.333333333
+ ESP         | Spain       | 1_9_EMPLOYED   |                 139855
+ DEU         | Germany     | 1_9_EMPLOYED   |       124644.666666667
+ AUS         | Australia   | 1_9_EMPLOYED   |               117362.5
+(10 rows)
+
+----------------- Country whose top enterprise size is not 1_9_EMPLOYED -----------------
+
+ countrycode | countryname | enterprisesize | maxavgnumofenterprises 
+-------------+-------------+----------------+------------------------
+ CHL         | Chile       | 20_49_EMPLOYED |                   1293
+(1 row)
+
+--------------- Number of enterprises with size 1_9_EMPLOYED in 10 top countries with highest GDP --------------
+
+ countrycode |  countryname   | enterprisesize | maxavgnumofenterprises 
+-------------+----------------+----------------+------------------------
+ JPN         | Japan          | 1_9_EMPLOYED   |                 287122
+ RUS         | Russia         | 1_9_EMPLOYED   |       280125.666666667
+ FRA         | France         | 1_9_EMPLOYED   |       180245.666666667
+ DEU         | Germany        | 1_9_EMPLOYED   |       124644.666666667
+ GBR         | United Kingdom | 1_9_EMPLOYED   |       107159.666666667
+(5 rows)
+
+-------------- Number of enterprises with size 1_9_EMPLOYED in 10 top countries with highest GDPPerCapita ------------
+
+ countrycode | countryname | enterprisesize | maxavgnumofenterprises 
+-------------+-------------+----------------+------------------------
+ NLD         | Netherlands | 1_9_EMPLOYED   |                  59181
+ IRL         | Ireland     | 1_9_EMPLOYED   |       13953.6666666667
+ NOR         | Norway      | 1_9_EMPLOYED   |       13773.6666666667
+ DNK         | Denmark     | 1_9_EMPLOYED   |       11650.3333333333
+ CHE         | Switzerland | 1_9_EMPLOYED   |       10661.3333333333
+ ISL         | Iceland     | 1_9_EMPLOYED   |                   1725
+ LUX         | Luxembourg  | 1_9_EMPLOYED   |                    458
+(7 rows)
+
+psql:queries.sql:377: NOTICE:  view "bigenterprises" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+psql:queries.sql:383: NOTICE:  view "bigenterprisesincountries" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+------------ Top 10 countries with highest number of big enterpises of size 250MORE_EMPLOYED ------------
+
+ countrycode |  countryname   | avgnumofenterpriseswiththissize 
+-------------+----------------+---------------------------------
+ DEU         | Germany        |                4438.33333333333
+ RUS         | Russia         |                            4070
+ JPN         | Japan          |                            3572
+ TUR         | Turkey         |                            1991
+ POL         | Poland         |                            1662
+ FRA         | France         |                1351.33333333333
+ ITA         | Italy          |                1319.33333333333
+ GBR         | United Kingdom |                1254.66666666667
+ CZE         | Czechia        |                879.666666666667
+ ESP         | Spain          |                857.666666666667
+(10 rows)
+
